@@ -1,0 +1,28 @@
+<%- include('partials/navbar', { page: '' }) %>
+
+<h1 class="text-3xl font-bold mb-4">Edit Project: <%= project.title %></h1>
+
+<form action="/solutions/editProject" method="POST" class="space-y-4">
+  <input type="hidden" name="id" value="<%= project.id %>" />
+
+  <input type="text" name="title" value="<%= project.title %>" required class="w-full p-2 border rounded" />
+  <input type="url" name="feature_img_url" value="<%= project.feature_img_url %>" required class="w-full p-2 border rounded" />
+
+  <select name="sector_id" required class="w-full p-2 border rounded">
+    <% sectors.forEach(sector => { %>
+      <option value="<%= sector.id %>" <%= project.sector_id == sector.id ? "selected" : "" %>>
+        <%= sector.sector_name %>
+      </option>
+    <% }) %>
+  </select>
+
+  <textarea name="intro_short" required class="w-full p-2 border rounded"><%= project.intro_short %></textarea>
+  <textarea name="summary_short" required class="w-full p-2 border rounded"><%= project.summary_short %></textarea>
+  <textarea name="impact" required class="w-full p-2 border rounded"><%= project.impact %></textarea>
+  <input type="url" name="original_source_url" value="<%= project.original_source_url %>" required class="w-full p-2 border rounded" />
+
+  <div class="flex gap-4">
+    <button type="submit" class="btn btn-success">Update Project</button>
+    <a href="/solutions/deleteProject/<%= project.id %>" class="btn btn-error">Delete Project</a>
+  </div>
+</form>

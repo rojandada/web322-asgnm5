@@ -1,0 +1,15 @@
+<%- include('partials/navbar', { page: '/solutions/projects' }) %>
+
+<h1 class="text-3xl font-bold mb-6">All Projects</h1>
+
+<div class="grid gap-6">
+  <% projects.forEach(project => { %>
+    <div class="border p-4 rounded shadow">
+      <h2 class="text-xl font-semibold mb-2"><%= project.title %></h2>
+      <img src="<%= project.feature_img_url %>" alt="Image" class="w-full h-48 object-cover mb-2" />
+      <p><strong>Sector:</strong> <%= project.Sector.sector_name %></p>
+      <p><%= project.summary_short %></p>
+      <a href="/solutions/project/<%= project.id %>" class="text-blue-500 underline">View Details</a>
+    </div>
+  <% }) %>
+</div>

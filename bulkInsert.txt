@@ -1,0 +1,28 @@
+sequelize
+.sync()
+.then( async () => {
+  try{
+    await Sector.bulkCreate(sectorData); 
+    await Project.bulkCreate(projectData);
+
+    await sequelize.query(`SELECT setval(pg_get_serial_sequence('"Sectors"', 'id'), (SELECT MAX(id) FROM "Sectors"))`);
+    await sequelize.query(`SELECT setval(pg_get_serial_sequence('"Projects"', 'id'), (SELECT MAX(id) FROM "Projects"))`);
+
+    console.log("-----");
+    console.log("data inserted successfully");
+  }catch(err){
+    console.log("-----");
+    console.log(err.message);
+
+    // NOTE: If you receive the error:
+
+    // insert or update on table "Projects" violates foreign key constraint "Projects_sector_id_fkey"
+    // it is because you have a "project" in your collection that has a "sector_id" that does not exist in "sectorData".   
+    // To fix this, use PgAdmin to delete the newly created "Sectors" and "Projects" tables, fix the error in your .json files and re-run this code
+  }
+
+  process.exit();
+})
+.catch((err) => {
+  console.log('Unable to connect to the database:', err);
+});
