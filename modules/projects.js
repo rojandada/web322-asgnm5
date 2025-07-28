@@ -16,7 +16,6 @@ let sequelize = new Sequelize(
   }
 );
 
-// Define Sector model
 const Sector = sequelize.define("Sector", {
   id: {
     type: Sequelize.INTEGER,
@@ -29,7 +28,6 @@ const Sector = sequelize.define("Sector", {
   updatedAt: false
 });
 
-// Define Project model
 const Project = sequelize.define("Project", {
   id: {
     type: Sequelize.INTEGER,
@@ -48,7 +46,6 @@ const Project = sequelize.define("Project", {
   updatedAt: false
 });
 
-// Association
 Project.belongsTo(Sector, { foreignKey: "sector_id" });
 
 function initialize() {
